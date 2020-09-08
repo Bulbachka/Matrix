@@ -50,6 +50,11 @@ namespace Matrix
 
         public static Matrix operator *(Matrix a, Matrix b)
         {
+            if (a.Columns != b.Rows)
+            {
+                throw new Exception("non-multipliable matrices");
+            }
+
             var result = new Matrix(a.Rows, b.Columns);
 
             for (var i = 0; i < a.Rows; ++i)
@@ -62,7 +67,7 @@ namespace Matrix
                     }
                 }
             }
-
+                
             return result;
         }
     }
