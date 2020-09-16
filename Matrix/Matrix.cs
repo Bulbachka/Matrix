@@ -4,7 +4,7 @@ namespace Matrix
 {
     public class Matrix
     {
-        private double[,] Data { get; }
+        private double[,] Data { get; set; }
 
         public Matrix(double[,] data, int rows, int columns)
         {
@@ -20,10 +20,44 @@ namespace Matrix
             Data = new double[rows, columns];
         }
 
-        private int Rows { get; }
+        private int Rows { get; set; }
 
-        private int Columns { get; }
+        private int Columns { get; set; }
 
+        public static Matrix Transposition(Matrix m)
+        {
+            Matrix result = new Matrix(m.Columns, m.Rows);
+            
+            for (int i = 0; i < result.Rows; i++)
+            {
+                for (int j = 0; j < result.Columns; j++)
+                {
+                    result[i, j] = m[j, i];
+                }
+            }
+
+            return result;
+        }
+        
+        public Matrix Transposition()
+        {
+            double[,] result = new double[Columns,Rows];
+            
+            for (int i = 0; i < Columns; i++)
+            {
+                for (int j = 0; j < Rows; j++)
+                {
+                    result[i, j] = Data[j, i];
+                }
+            }
+
+            Data = result;
+            int temp = Rows;
+            Rows = Columns;
+            Columns = temp;
+
+            return this;
+        }
  
         public double this[int i, int j]
         {
